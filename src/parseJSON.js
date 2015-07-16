@@ -62,7 +62,7 @@ var parseJSON = function(json) {
     }
   } else if (/[0-9-]/.test(json[0])){
     // Number
-    var number = Number(json.slice(1,-1));
+    var number = Number(json);
     if (isNaN(number)){
       throw new Error('Invalid Number');
     } else {
