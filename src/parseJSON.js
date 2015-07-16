@@ -7,21 +7,21 @@ var parseJSON = function(json) {
   json = json.trim();
   if (json[0] === '{'){
     // Object
-    if (_.last(json[0]) === '}'){
+    if (_.last(json) === '}'){
 
     } else {
       throw new Error('Invalid Object');
     }
   } else if (json[0] === '['){
     // Array
-    if (_.last(json[0]) === ']'){
-
+    if (_.last(json) === ']'){
+      
     } else {
       throw new Error('Invalid Array');
     }
   } else if (json[0] === '"'){
     // String
-    if (_.last(json[0]) === '"'){
+    if (_.last(json) === '"'){
 
     } else {
       throw new Error('Invalid String');
