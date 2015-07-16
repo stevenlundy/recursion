@@ -8,7 +8,16 @@ var parseJSON = function(json) {
   if (json[0] === '{'){
     // Object
     if (_.last(json) === '}'){
-
+      if(json.slice(1,-1).trim().length === 0 ){
+        return {};
+      }
+      var items = json.slice(1,-1).split(',');
+      var obj = {};
+      items.forEach(function(item){
+        var item = item.split(':');
+        obj[parseJSON(item[0])] = parseJSON(item[1]);
+      });
+      return obj;
     } else {
       throw new Error('Invalid Object');
     }
@@ -26,7 +35,7 @@ var parseJSON = function(json) {
   } else if (json[0] === '"'){
     // String
     if (_.last(json) === '"'){
-
+      return json.slice(1,-1);
     } else {
       throw new Error('Invalid String');
     }
@@ -53,6 +62,11 @@ var parseJSON = function(json) {
     }
   } else if (/[0-9-]/.test(json[0])){
     // Number
-
+    var number = Number(json.slice(1,-1));
+    if (isNaN(number)){
+      throw new Error('Invalid Number');
+    } else {
+      return number;
+    }
   }
 };
