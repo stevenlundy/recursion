@@ -19,7 +19,7 @@ var parseJSON = function(json) {
       });
       return obj;
     } else {
-      throw new Error('Invalid Object');
+      throw new SyntaxError('Invalid Object in ' + json);
     }
   } else if (json[0] === '['){
     // Array
@@ -30,41 +30,41 @@ var parseJSON = function(json) {
       var items = json.slice(1,-1).split(',');
       return items.map(parseJSON);      
     } else {
-      throw new Error('Invalid Array');
+      throw new SyntaxError('Invalid Array in ' + json);
     }
   } else if (json[0] === '"'){
     // String
     if (_.last(json) === '"'){
       return json.slice(1,-1);
     } else {
-      throw new Error('Invalid String');
+      throw new SyntaxError('Invalid String in ' + json);
     }
   } else if (json[0] === 't'){
     // true
     if (json === 'true'){
       return true;
     } else {
-      throw new Error('Invalid keyword');
+      throw new SyntaxError('Invalid keyword in ' + json);
     }
   } else if (json[0] === 'f'){
     // false
     if (json === 'false'){
       return false;
     } else {
-      throw new Error('Invalid keyword');
+      throw new SyntaxError('Invalid keyword in ' + json);
     }
   } else if (json[0] === 'n'){
     // null
     if (json === 'null'){
       return null;
     } else {
-      throw new Error('Invalid keyword');
+      throw new SyntaxError('Invalid keyword in ' + json);
     }
   } else if (/[0-9-]/.test(json[0])){
     // Number
     var number = Number(json);
     if (isNaN(number)){
-      throw new Error('Invalid Number');
+      throw new SyntaxError('Invalid Number in ' + json);
     } else {
       return number;
     }
