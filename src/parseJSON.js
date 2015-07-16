@@ -28,13 +28,25 @@ var parseJSON = function(json) {
     }
   } else if (json[0] === 't'){
     // true
-
+    if (json === 'true'){
+      return true;
+    } else {
+      throw 'Invalid keyword';
+    }
   } else if (json[0] === 'f'){
     // false
-
+    if (json === 'false'){
+      return false;
+    } else {
+      throw 'Invalid keyword';
+    }
   } else if (json[0] === 'n'){
     // null
-
+    if (json === 'null'){
+      return null;
+    } else {
+      throw 'Invalid keyword';
+    }
   } else if (/[0-9-]/.test(json[0])){
     // Number
 
