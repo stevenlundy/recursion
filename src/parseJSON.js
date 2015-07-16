@@ -15,7 +15,11 @@ var parseJSON = function(json) {
   } else if (json[0] === '['){
     // Array
     if (_.last(json) === ']'){
-      
+      if(json.slice(1,-1).trim().length === 0 ){
+        return [];
+      }
+      var items = json.slice(1,-1).split(',');
+      return items.map(parseJSON);      
     } else {
       throw new Error('Invalid Array');
     }
