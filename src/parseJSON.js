@@ -6,6 +6,9 @@ var parseJSON = function(json) {
 
   var charIndex = 0;
   var getVariable = function(){
+    while(json[charIndex] === ' '){
+      charIndex++;
+    }
     if(json[charIndex] === '{'){
       return getObject();
     } else if(json[charIndex] === '['){
