@@ -38,4 +38,16 @@ var parseJSON = function(json) {
     charIndex++; // Skip over end quote
     return string;
   };
+  var getNumber = function(){
+    var number = '';
+    while(/[0-9-+eE\.]/.test(json[charIndex] && charIndex < json.length)){
+      number += json[charIndex];
+      charIndex++;
+    }
+    if(isNaN(Number(number))){
+      throw new SyntaxError('Invalid Number: ' + number);
+    } else {
+      return Number(number);
+    }
+  };
 };
