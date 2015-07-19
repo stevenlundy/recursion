@@ -27,5 +27,15 @@ var parseJSON = function(json) {
     } else if (/[0-9-]/.test(json[charIndex])){
       return getNumber();
     }
-  }
+  };
+  var getString = function(){
+    charIndex++; // Skip over open quote
+    var string = '';
+    while(json[charIndex] !== '"'){
+      string += json[charIndex];
+      charIndex++;
+    }
+    charIndex++; // Skip over end quote
+    return string;
+  };
 };
