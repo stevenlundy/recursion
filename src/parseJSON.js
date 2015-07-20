@@ -7,6 +7,7 @@ var parseJSON = function(json) {
   var charIndex = 0;
   var getVariable = function(){
     while(json[charIndex] === ' '){
+      // remove leading spaces
       charIndex++;
     }
     if(json[charIndex] === '{'){
@@ -49,5 +50,23 @@ var parseJSON = function(json) {
     } else {
       return Number(number);
     }
+  };
+  var getArray = function(){
+    charIndex++; // Skip over opening [
+    var array = [];
+    while(json[charIndex] !== ']'){
+      array.push(getVariable());
+      while(json[charIndex] === ' '){
+        // remove trailing spaces
+        charIndex++;
+      }
+      if(json[charIndex] === ','){
+        charIndex++;
+      } else if (charIndex >= json.length || json[charIndex] !== ']'){
+        throw new SyntaxError('Invalid Array');
+      }
+    }
+    charIndex++; // Skip over closing ]
+    return array;
   };
 };
