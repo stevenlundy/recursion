@@ -3,13 +3,9 @@
 
 // but you're not, so you'll write it from scratch:
 var parseJSON = function(json) {
-
   var charIndex = 0;
   var getVariable = function(){
-    while(json[charIndex] === ' '){
-      // remove leading spaces
-      charIndex++;
-    }
+    skipWhiteSpace)();
     if(json[charIndex] === '{'){
       return getObject();
     } else if(json[charIndex] === '['){
@@ -56,10 +52,7 @@ var parseJSON = function(json) {
     var array = [];
     while(json[charIndex] !== ']'){
       array.push(getVariable());
-      while(json[charIndex] === ' '){
-        // remove trailing spaces
-        charIndex++;
-      }
+      skipWhiteSpace();
       if(json[charIndex] === ','){
         charIndex++;
       } else if (charIndex >= json.length || json[charIndex] !== ']'){
@@ -68,5 +61,10 @@ var parseJSON = function(json) {
     }
     charIndex++; // Skip over closing ]
     return array;
+  };
+  var skipWhiteSpace = function(){
+      while(json[charIndex] === ' '){
+        charIndex++;
+      }
   };
 };
