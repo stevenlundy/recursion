@@ -29,6 +29,10 @@ var parseJSON = function(json) {
     charIndex++; // Skip over open quote
     var string = '';
     while(json[charIndex] !== '"'){
+      if(json[charIndex] === '\\'){
+        string += json[charIndex];
+        charIndex++;
+      }
       string += json[charIndex];
       charIndex++;
     }
@@ -37,7 +41,7 @@ var parseJSON = function(json) {
   };
   var getNumber = function(){
     var number = '';
-    while(/[0-9-+eE\.]/.test(json[charIndex] && charIndex < json.length)){
+    while(/[0-9-+eE\.]/.test(json[charIndex]) && charIndex < json.length){
       number += json[charIndex];
       charIndex++;
     }
