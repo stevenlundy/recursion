@@ -26,6 +26,16 @@ var parseJSON = function(json) {
     }
   };
   var getString = function(){
+    var escapee = {
+      '"': '"',
+      '\\': '\\',
+      '/': '/',
+      'b': 'b',
+      'f': '\f',
+      'n': '\n',
+      'r': '\r',
+      't': '\t'
+    };
     charIndex++; // Skip over open quote
     var string = '';
     while(json[charIndex] !== '"'){
@@ -33,11 +43,16 @@ var parseJSON = function(json) {
         throw new SyntaxError('Invalid String: ' + string);
       }
       if(json[charIndex] === '\\'){
+        if(json[charIndex+1] in escapee){
+          string += escapee[json[charIndex+1]];
+        } else {
+          string += json.substr(charIndex,2);
+        }
+        charIndex += 2;
+      } else {
         string += json[charIndex];
         charIndex++;
       }
-      string += json[charIndex];
-      charIndex++;
     }
     charIndex++; // Skip over end quote
     return string;
