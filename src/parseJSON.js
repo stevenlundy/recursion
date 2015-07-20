@@ -67,7 +67,8 @@ var parseJSON = function(json) {
     return array;
   };
   var skipWhiteSpace = function(){
-      while(json[charIndex] === ' '){
+    var whiteSpace = [' ', '\t', '\n', '\r'];
+      while(whiteSpace.indexOf(json[charIndex]) !== -1){
         charIndex++;
       }
   };
