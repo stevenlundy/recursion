@@ -29,6 +29,9 @@ var parseJSON = function(json) {
     charIndex++; // Skip over open quote
     var string = '';
     while(json[charIndex] !== '"'){
+      if(charIndex > json.length){
+        throw new SyntaxError('Invalid String: ' + string);
+      }
       if(json[charIndex] === '\\'){
         string += json[charIndex];
         charIndex++;
