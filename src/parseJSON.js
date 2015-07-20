@@ -5,7 +5,7 @@
 var parseJSON = function(json) {
   var charIndex = 0;
   var getVariable = function(){
-    skipWhiteSpace)();
+    skipWhiteSpace();
     if(json[charIndex] === '{'){
       return getObject();
     } else if(json[charIndex] === '['){
@@ -67,4 +67,27 @@ var parseJSON = function(json) {
         charIndex++;
       }
   };
+  var getObject = function(){
+    charIndex++; // Skip over opening {
+    var object = {};
+    while(json[charIndex] !== '}'){
+      skipWhiteSpace();
+      var prop = getString();
+      skipWhiteSpace();
+      if(json[charIndex] !== ':'){
+        throw new SyntaxError('Invalid Object in '+json);
+      }
+      charIndex++;
+      object[prop] = getVariable();
+      skipWhiteSpace();
+      if(json[charIndex] === ','){
+        charIndex++;
+      } else if (charIndex >= json.length || json[charIndex] !== '}'){
+        throw new SyntaxError('Invalid Object');
+      }
+    }
+    charIndex++; // Skip over closing }
+    return object;
+  };
+  return getVariable();
 };
